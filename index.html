@@ -1,0 +1,180 @@
+<!doctype html>
+<html lang="ru">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <title>ПОБЕДА — календарь побед</title>
+  <meta name="description" content="Календарь ежедневных побед. Отметь день или сдайся.">
+  <meta name="theme-color" content="#0a0a0b">
+  <link rel="manifest" href="manifest.webmanifest">
+  <link rel="icon" href="icon-192.png">
+  <link rel="apple-touch-icon" href="icon-192.png">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  <meta name="apple-mobile-web-app-title" content="ПОБЕДА">
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+
+  <header class="top">
+    <div class="logo"><span id="logoText">ПОБЕДА</span><span class="logo-dot">_</span></div>
+    <div class="top-right">
+      <div class="streak-box" id="streakBox" title="Текущая серия">
+        <span class="fire">🔥</span>
+        <span class="streak-num" id="streakNum">0</span>
+        <span class="streak-lbl" id="streakLbl">дней</span>
+      </div>
+      <div class="rank-box" title="Твоё звание за текущую серию">
+        <span class="rank-lbl" id="rankLbl">ЗВАНИЕ</span>
+        <span class="rank-name" id="rankName">—</span>
+      </div>
+    </div>
+  </header>
+
+  <main>
+    <section id="riskBanner" class="banner hidden"></section>
+    <section id="breakBanner" class="banner break-banner hidden"></section>
+    <section id="freezeBanner" class="banner freeze-banner hidden"></section>
+
+    <section class="card mark-card" id="markCard">
+      <div class="card-head">
+        <h2 id="markTitle">СЕГОДНЯ</h2>
+        <div class="date-nav">
+          <button id="prevDay" class="icon-btn" title="Предыдущий день">‹</button>
+          <button id="nextDay" class="icon-btn" title="Следующий день">›</button>
+        </div>
+      </div>
+      <p class="moto" id="motoLine"></p>
+      <div id="catButtons" class="chips"></div>
+      <p class="hint" id="markHint">Клик по категории — победа дня зафиксирована. Отмечать можно и прошлые дни.</p>
+    </section>
+
+    <section class="stats-row">
+      <div class="stat"><div class="stat-num" id="statStreak">0</div><div class="stat-lbl" id="statStreakLbl">текущая серия</div></div>
+      <div class="stat"><div class="stat-num" id="statBest">0</div><div class="stat-lbl" id="statBestLbl">рекорд</div></div>
+      <div class="stat"><div class="stat-num" id="statTotal">0</div><div class="stat-lbl" id="statTotalLbl">дней с победами</div></div>
+      <div class="stat"><div class="stat-num" id="statBreaks">0</div><div class="stat-lbl" id="statBreaksLbl">сорвано серий</div></div>
+    </section>
+
+    <section class="card freeze-card">
+      <div class="card-head">
+        <h2 id="freezeTitle">ЗАМОРОЗКА СЕРИИ</h2>
+        <span class="freeze-count" id="freezeCount">❄ 2</span>
+      </div>
+      <p class="freeze-desc" id="freezeDesc">Чтобы активировать заморозку серии, вам необходимо нажать на эту кнопку —</p>
+      <button id="freezeBtn" class="losara-btn" type="button">Я — ЛОШАРА</button>
+      <p class="hint" id="freezeHint">Заморозка спасает вчерашний пропущенный день вместе со всей серией. +1 заморозка за каждую закрытую неделю (7, 14, 21...). Максимум 3 в запасе. Кнопку нажмёшь — позор останется.</p>
+    </section>
+
+    <section class="card">
+      <div class="card-head">
+        <h2 id="monthTitle">—</h2>
+        <div class="date-nav">
+          <button id="prevMonth" class="icon-btn" title="Предыдущий месяц">‹</button>
+          <button id="todayBtn" class="text-btn">Сегодня</button>
+          <button id="nextMonth" class="icon-btn" title="Следующий месяц">›</button>
+        </div>
+      </div>
+      <div class="cal-week">
+        <span>ПН</span><span>ВТ</span><span>СР</span><span>ЧТ</span><span>ПТ</span><span>СБ</span><span>ВС</span>
+      </div>
+      <div id="calendar" class="cal-grid"></div>
+      <div id="legend" class="legend"></div>
+    </section>
+
+    <section class="card">
+      <div class="card-head"><h2 id="statsTitle">СТАТИСТИКА</h2><button id="shareBtn" class="text-btn accent" title="Скриншот-хвастство">📢 Похвастаться</button></div>
+      <div class="stats-row stat-mini">
+        <div class="stat"><div class="stat-num" id="stWins30">0</div><div class="stat-lbl" id="stWinsLbl">побед за 30 дней</div></div>
+        <div class="stat"><div class="stat-num" id="stRate30">0%</div><div class="stat-lbl" id="stRateLbl">из последних 30 дней</div></div>
+        <div class="stat"><div class="stat-num" id="stMonth">0</div><div class="stat-lbl" id="stMonthLbl">в этом месяце</div></div>
+        <div class="stat"><div class="stat-num" id="stWeakDay">—</div><div class="stat-lbl" id="stWeakLbl">твой слабый день</div></div>
+      </div>
+      <h3 class="stat-h" id="hWeeks">ПО НЕДЕЛЯМ (ПОСЛЕДНИЕ 12)</h3>
+      <div id="weekBars" class="bars"></div>
+      <h3 class="stat-h" id="hDow">ПО ДНЯМ НЕДЕЛИ — ГДЕ ТЫ СДАЁШЬСЯ</h3>
+      <div id="dowBars" class="bars dow-bars"></div>
+      <h3 class="stat-h" id="hCats">ПО КАТЕГОРИЯМ</h3>
+      <div id="catStats" class="cat-stats"></div>
+    </section>
+
+    <div class="cols">
+      <section class="card">
+        <div class="card-head"><h2 id="catsTitle">КАТЕГОРИИ</h2></div>
+        <div id="catList" class="cat-list"></div>
+        <form id="catForm" class="cat-form" autocomplete="off">
+          <input id="catEmoji" placeholder="🔥" maxlength="8" title="Эмодзи">
+          <input id="catName" placeholder="Название" maxlength="24" required>
+          <input id="catColor" type="color" value="#ff4d2e" title="Цвет">
+          <button type="submit" class="text-btn accent" id="catAddBtn">Добавить</button>
+        </form>
+        <form id="finishForm" class="finish-form hidden" autocomplete="off">
+          <p class="finish-title" id="finishTitle"></p>
+          <input id="finishNote" placeholder="Причина: закончил курсы, выпустился, перешёл на новое..." maxlength="120">
+          <div class="btn-row">
+            <button type="submit" class="text-btn accent" id="finishSubmit">🏁 Закрыть цель</button>
+            <button type="button" class="text-btn" id="finishCancel">Отмена</button>
+          </div>
+          <p class="hint" id="finishHint">Финиш — не провал. Цель уйдёт в «Завершённые» со своей историей.</p>
+        </form>
+      </section>
+
+      <section class="card">
+        <div class="card-head"><h2 id="badgesTitle">ЗАЛ НАГРАД</h2></div>
+        <div id="badges" class="badges"></div>
+        <p class="hint" id="badgesHint">Награды выдаются за длину серии. Сорвал серию — награды остались, но звание сгорело. После 365 дней есть то, чего ты не видишь.</p>
+      </section>
+    </div>
+
+    <section class="card done-card hidden" id="doneCard">
+      <div class="card-head"><h2 id="doneTitle">🏁 ЗАВЕРШЁННЫЕ ЦЕЛИ</h2><span class="hint-inline" id="doneCount"></span></div>
+      <div id="doneList" class="done-list"></div>
+      <p class="hint" id="doneHint">Финиш — не провал. Здесь живут цели, которые ты довёл до конца.</p>
+    </section>
+
+    <section class="card secrets-card hidden" id="secretsCard">
+      <div class="card-head"><h2 id="secretsTitle">🔒 СЕКРЕТЫ</h2></div>
+      <div id="secretList" class="badges"></div>
+      <p class="hint" id="secretsHint">Этого нет в зале наград. Об этом знают только те, кто дошёл.</p>
+    </section>
+
+    <section class="card">
+      <div class="card-head"><h2 id="settingsTitle">НАСТРОЙКИ</h2></div>
+      <div class="settings">
+        <div class="setting-row">
+          <label class="switch-label">
+            <input type="checkbox" id="notifToggle">
+            <span class="switch"></span>
+            <span id="notifLabel">Напоминать, если день не отмечен</span>
+          </label>
+        </div>
+        <div class="setting-row time-row">
+          <label for="notifTime" id="deadlineLbl">Время дедлайна:</label>
+          <input type="time" id="notifTime" value="20:00">
+          <span class="hint-inline" id="notifStatus"></span>
+        </div>
+        <div class="setting-row">
+          <label for="langSelect" id="langLbl">🌍 Язык:</label>
+          <select id="langSelect" class="lang-select">
+            <option value="ru">Русский</option>
+            <option value="en">English</option>
+          </select>
+        </div>
+        <div class="setting-row btn-row">
+          <button id="exportBtn" class="text-btn">Экспорт данных</button>
+          <button id="importBtn" class="text-btn">Импорт данных</button>
+          <input type="file" id="importFile" accept=".json" class="hidden">
+          <button id="resetBtn" class="text-btn danger">Сжечь всё</button>
+        </div>
+        <p class="hint" id="settingsHint">Данные живут только в этом браузере. Экспортируй их, чтобы не потерять серию.</p>
+      </div>
+    </section>
+  </main>
+
+  <footer class="footer" id="footer">СЛАБОСТЬ СЕГОДНЯ — БОЛЬ ЗАВТРА. ТВОЙ ВЫБОР.</footer>
+
+  <div id="toast" class="toast hidden"></div>
+
+  <script src="app.js"></script>
+</body>
+</html>

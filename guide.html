@@ -1,0 +1,85 @@
+<!doctype html>
+<html lang="ru">
+<head>
+<meta charset="utf-8">
+<title>ПОБЕДА — краткая инструкция</title>
+<style>
+  @page { size: A4; margin: 16mm 15mm; }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body {
+    font-family: "Segoe UI", Arial, sans-serif;
+    color: #17171a;
+    font-size: 12.5px;
+    line-height: 1.5;
+  }
+  .band { height: 10px; background: #ff4d2e; border-radius: 4px; margin-bottom: 18px; }
+  h1 { font-size: 30px; font-weight: 900; letter-spacing: 4px; margin-bottom: 2px; }
+  .sub { color: #6a6a72; font-size: 13px; margin-bottom: 18px; }
+  h2 {
+    font-size: 14px; font-weight: 800; text-transform: uppercase; letter-spacing: 2px;
+    color: #ff4d2e; margin: 18px 0 8px; border-bottom: 2px solid #eee; padding-bottom: 4px;
+  }
+  ol, ul { padding-left: 20px; }
+  li { margin-bottom: 5px; }
+  b { font-weight: 700; }
+  .k { background: #f2f2f4; border: 1px solid #ddd; border-radius: 4px; padding: 0 5px; font-family: Consolas, monospace; font-size: 11.5px; }
+  .cards { display: flex; gap: 12px; margin-top: 6px; }
+  .card { flex: 1; border: 1.5px solid #e2e2e6; border-radius: 10px; padding: 12px 14px; }
+  .card h3 { font-size: 13px; margin-bottom: 6px; }
+  .en { margin-top: 20px; border-top: 3px solid #17171a; padding-top: 12px; }
+  .en h2 { color: #17171a; }
+  .tip { background: #fff2ef; border-left: 4px solid #ff4d2e; border-radius: 0 8px 8px 0; padding: 8px 12px; margin-top: 10px; }
+  .foot { margin-top: 18px; text-align: center; color: #9a9aa2; font-size: 10.5px; font-weight: 800; letter-spacing: 3px; }
+</style>
+</head>
+<body>
+  <div class="band"></div>
+  <h1>ПОБЕДА</h1>
+  <div class="sub">Календарь ежедневных побед. Отметь день или сдайся. · Краткая инструкция</div>
+
+  <h2>1 · Запуск на ноутбуке (Windows / macOS)</h2>
+  <div class="cards">
+    <div class="card">
+      <h3>Быстро, без установки</h3>
+      Открой файл <span class="k">index.html</span> двойным кликом — приложение заработает в браузере. Работают все функции, кроме режима «установленного приложения».
+    </div>
+    <div class="card">
+      <h3>Полный режим (рекомендуется)</h3>
+      В папке приложения выполни <span class="k">node server.js</span> → открой <span class="k">http://localhost:8123</span> → в адресной строке нажми <b>«Установить»</b>. «ПОБЕДА» запустится как отдельная программа с иконкой и будет работать офлайн.
+    </div>
+  </div>
+
+  <h2>2 · Установка на iPhone</h2>
+  <ol>
+    <li>Выложи папку на любой бесплатный HTTPS-хостинг: GitHub Pages, Netlify, Vercel (перетащи папку на сайт — получишь ссылку вида <span class="k">https://твоя-ссылка</span>).</li>
+    <li>Открой ссылку в <b>Safari</b> → кнопка <b>«Поделиться»</b> → <b>«На экран “Домой”»</b>.</li>
+    <li>Готово: иконка на рабочем столе, запуск в полный экран, данные хранятся в телефоне.</li>
+  </ol>
+
+  <h2>3 · Как пользоваться</h2>
+  <ul>
+    <li><b>Победа дня:</b> кликни по категории (📚 Учёба, 🏋️ Спорт — свои любые) в блоке «Сегодня». Прошлые дни тоже можно отметить — кликни по дню в календаре.</li>
+    <li><b>Серия 🔥:</b> растёт за каждый день с победой — общая и по каждой категории. Звания: Новобранец → … → Бессмертный.</li>
+    <li><b>Заморозка:</b> пропустил вчера? Нажми большую красную кнопку в карточке «Заморозка серии» — серия спасётся. +1 заморозка за каждую неделю серии.</li>
+    <li><b>Цель выполнена:</b> нажми <b>✔</b> у категории, укажи причину («закончил курсы») — цель уйдёт в «Завершённые» без потери истории.</li>
+    <li><b>Статистика и хвастовство:</b> графики по неделям и дням недели; кнопка <b>«📢 Похвастаться»</b> создаёт скриншот с дерзкой фразой — на iPhone жми «Сохранить изображение», и он упадёт в галерею.</li>
+    <li><b>Язык:</b> Настройки → «🌍 Язык» → Русский / English.</li>
+    <li><b>Секрет:</b> после 365 дней серии в приложении кое-что появится. Что именно — не скажем.</li>
+  </ul>
+
+  <div class="tip"><b>Важно:</b> данные хранятся только в твоём браузере. Раз в неделю жми <b>«Экспорт данных»</b> (Настройки) и сохраняй JSON-файл — так серия не потеряется при очистке браузера или смене устройства (восстановление — «Импорт данных»).</div>
+
+  <div class="en">
+    <h2>Quick start (English)</h2>
+    <ul>
+      <li><b>Desktop:</b> open <span class="k">index.html</span> in your browser, or run <span class="k">node server.js</span> and open <span class="k">http://localhost:8123</span> → click <b>Install</b> in the address bar to get it as a standalone app (works offline).</li>
+      <li><b>iPhone:</b> host the folder on GitHub Pages / Netlify / Vercel → open the link in Safari → Share → <b>“Add to Home Screen”</b>.</li>
+      <li><b>Log a win:</b> tap a category under TODAY. Break a day? Hit the big red <b>I CHOKED</b> button to save your streak with a freeze.</li>
+      <li><b>Flex:</b> the <b>📢 Show off</b> button in STATS builds a savage screenshot — on iPhone choose “Save Image” and it lands in Photos.</li>
+      <li><b>Backup:</b> Settings → <b>Export data</b> weekly. Your streak, your responsibility.</li>
+    </ul>
+  </div>
+
+  <div class="foot">СЛАБОСТЬ СЕГОДНЯ — БОЛЬ ЗАВТРА · WEAK TODAY — SORE TOMORROW</div>
+</body>
+</html>
